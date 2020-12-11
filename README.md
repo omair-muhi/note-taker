@@ -11,7 +11,9 @@ This is a web-application that allows users to enter quick notes, save them and 
 * [Tests](#tests)
 
 ## Usage 
-`npm install`
+* To install: `npm install`
+* To run server in normal mode: `npm run start`
+* To run server in watch mode: `npm run watch`
 
 Access web-page here: (https://omair-muhi.github.io/note-taker/)
 ![Note-taker main screen!](images/note-taker-screenshot.png)
