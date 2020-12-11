@@ -3,6 +3,10 @@
 // Dependencies
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
+
+// DB director
+const dbDirectory = path.resolve(__dirname, "../db");
 
 // Sets up the Express App
 const app = express();
@@ -21,7 +25,9 @@ app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, '../notes.html
 
 // GET: Return all saved notes as JSON from db.json
 app.get('/api/notes', (req, res) => {
-    res.json(characters)
+    // read db file
+    let dbJSON = fs.readFileSync(path.resolve(dbDirectory, "db.json"), "utf8");
+    res.json(JSON.parse(dbJSON));
 });
 
 // POST: Save a new note to db.json
