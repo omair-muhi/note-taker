@@ -11,6 +11,7 @@ This is a web-application that allows users to enter quick notes, save them and 
 * [Tests](#tests)
 
 ## Usage 
+`npm install`
 
 Access web-page here: (https://omair-muhi.github.io/note-taker/)
 ![Note-taker main screen!](images/note-taker-screenshot.png)
