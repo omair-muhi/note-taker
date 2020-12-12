@@ -12,6 +12,14 @@ if (window.location.pathname === '/notes') {
     noteList = document.querySelectorAll('.list-container .list-group');
 }
 
+let noteTakerLog;
+let getStartedBtn;
+
+if (window.location.pathname === '/') {
+    noteTakerLog = document.querySelector('#note-taker-nav-logo');
+    getStartedBtn = document.querySelector('#get-started-btn');
+}
+
 // Show an element
 const show = (elem) => {
     elem.style.display = 'inline';
@@ -175,6 +183,11 @@ if (window.location.pathname === '/notes') {
     newNoteBtn.addEventListener('click', handleNewNoteView);
     noteTitle.addEventListener('keyup', handleRenderSaveBtn);
     noteText.addEventListener('keyup', handleRenderSaveBtn);
+}
+
+if (window.location.pathname === '/') {
+    noteTakerLog.addEventlListener('click', handleNoteTakerLogo);
+    getStartedBtn.addEventListener('click', handleGetStartedBtn);
 }
 
 getAndRenderNotes();

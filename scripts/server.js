@@ -20,7 +20,7 @@ app.use(express.json());
 // GET: rest.sendFile(index.html)
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
-// GET: res.sendFile(index.html)
+// GET: res.sendFile(notes.html)
 app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, '../notes.html')));
 
 // GET: Return all saved notes as JSON from db.json
