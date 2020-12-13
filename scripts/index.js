@@ -198,4 +198,4 @@ if (window.location.pathname === '/') {
     getStartedBtn.addEventListener('click', handleGetStartedBtn);
 }
 
-// getAndRenderNotes();
+getAndRenderNotes();
