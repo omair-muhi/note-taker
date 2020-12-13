@@ -18,8 +18,6 @@ let getStartedBtn;
 if (window.location.pathname === '/') {
     noteTakerLog = document.querySelector('#note-taker-nav-logo');
     getStartedBtn = document.querySelector('#get-started-btn');
-} else {
-    console.log("Pathname was not /");
 }
 
 // Show an element
@@ -196,10 +194,8 @@ const handleGetStartedBtn = (e) => {
 };
 
 if (window.location.pathname === '/') {
-    noteTakerLog.addEventlListener('click', handleNoteTakerLogo);
+    noteTakerLog.addEventListener('click', handleNoteTakerLogo);
     getStartedBtn.addEventListener('click', handleGetStartedBtn);
-} else {
-    console.log("Pathname was not /");
 }
 
 // getAndRenderNotes();
