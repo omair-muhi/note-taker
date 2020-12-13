@@ -16,6 +16,7 @@ let noteTakerLog;
 let getStartedBtn;
 
 if (window.location.pathname === '/') {
+    console.log("Pathname was /");
     noteTakerLog = document.querySelector('#note-taker-nav-logo');
     getStartedBtn = document.querySelector('#get-started-btn');
 }
@@ -185,8 +186,16 @@ if (window.location.pathname === '/notes') {
     noteText.addEventListener('keyup', handleRenderSaveBtn);
 }
 
+const getRoot = () =>
+    fetch('/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    });
+
 const handleNoteTakerLogo = (e) => {
-    alert("handleNoteTakerLogo called!");
+    getRoot().then().catch(error => {});
 };
 
 const handleGetStartedBtn = (e) => {
@@ -194,8 +203,9 @@ const handleGetStartedBtn = (e) => {
 };
 
 if (window.location.pathname === '/') {
+    console.log("Pathname was /");
     noteTakerLog.addEventListener('click', handleNoteTakerLogo);
     getStartedBtn.addEventListener('click', handleGetStartedBtn);
 }
 
-getAndRenderNotes();
+// getAndRenderNotes();
