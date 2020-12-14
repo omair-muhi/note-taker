@@ -5,7 +5,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 
-// DB director
+// DB directory
 const dbDirectory = path.resolve(__dirname, "../../db");
 
 // Sets up the Express App
@@ -18,23 +18,28 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Routes: 3xGET, 1xPOST, 1xDELETE
-// GET: rest.sendFile(index.html)
-app.get('/', (req, res) => {
-    console.log("Serving index.html");
-    res.sendFile(path.join(__dirname, '../../index.html'))
-});
 
-// GET: res.sendFile(notes.html)
-app.get('/notes', (req, res) => {
-    console.log("Serving notes.html");
-    res.sendFile(path.join(__dirname, '../../notes.html'))
-});
-
-// GET: Return all saved notes as JSON from db.json
-app.get('/api/notes', (req, res) => {
-    // read db file
-    let dbJSON = fs.readFileSync(path.resolve(dbDirectory, "db.json"), "utf8");
-    res.json(JSON.parse(dbJSON));
+app.get('*', (req, res) => {
+    console.log("PATH", req.path);
+    switch (req.path) {
+        case '/':
+            // GET: rest.sendFile(index.html)
+            res.sendFile(path.join(__dirname, '../index.html'));
+            break;
+        case '/notes':
+            // GET: res.sendFile(notes.html)
+            res.sendFile(path.join(__dirname, '../notes.html'));
+            break;
+        case '/api/notes':
+            // GET: Return all saved notes as JSON from db.json
+            let dbJSON = fs.readFileSync(path.resolve(dbDirectory, "db.json"), "utf8");
+            res.json(JSON.parse(dbJSON));
+            break;
+        default:
+            // GET: rest.sendFile(index.html)
+            res.sendFile(path.join(__dirname, '../index.html'));
+            break;
+    }
 });
 
 // POST: Save a new note to db.json
