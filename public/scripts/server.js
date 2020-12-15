@@ -47,7 +47,8 @@ app.post('/api/notes', (req, res) => {
     // create new note with unique id
     let newNote = {
         id: uniqid(),
-        note: req.body
+        title: req.body.title,
+        text: req.body.text
     }
 
     // read db file
