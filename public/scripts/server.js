@@ -18,7 +18,6 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Routes: 3xGET, 1xPOST, 1xDELETE
-
 app.get('*', (req, res) => {
     console.log("PATH", req.path);
     switch (req.path) {
@@ -28,7 +27,7 @@ app.get('*', (req, res) => {
             break;
         case '/notes':
             // GET: res.sendFile(notes.html)
-            res.sendFile(path.join(__dirname, '../notes.html'));
+            res.sendFile(path.join(__dirname, '../html/notes.html'));
             break;
         case '/api/notes':
             // GET: Return all saved notes as JSON from db.json
@@ -44,12 +43,16 @@ app.get('*', (req, res) => {
 
 // POST: Save a new note to db.json
 app.post('/api/notes', (req, res) => {
-    // req.body hosts is equal to the JSON post sent from the user
-    // This works because of our body parsing middleware
-    // const someVariable = req.body;
-
-    // We then display the JSON to the users
-    // res.json();
+    // read db file
+    let dbJSON = fs.readFileSync(path.resolve(dbDirectory, "db.json"), "utf8");
+    let jsonData = JSON.parse(dbJSON);
+    // append new data
+    jsonData.push(req.body);
+    // write back db file
+    fs.writeFile(path.resolve(dbDirectory, "db.json"), JSON.stringify(jsonData), (err) => {
+        if (err !== null)
+            console.log(err);
+    });
 });
 
 // DELETE: remove a note from db.json
