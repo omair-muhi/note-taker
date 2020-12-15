@@ -4,6 +4,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const uniqid = require('uniqid');
 
 // DB directory
 const dbDirectory = path.resolve(__dirname, "../../db");
@@ -43,11 +44,17 @@ app.get('*', (req, res) => {
 
 // POST: Save a new note to db.json
 app.post('/api/notes', (req, res) => {
+    // create new note with unique id
+    let newNote = {
+        id: uniqid(),
+        note: req.body
+    }
+
     // read db file
     let dbJSON = fs.readFileSync(path.resolve(dbDirectory, "db.json"), "utf8");
     let jsonData = JSON.parse(dbJSON);
     // append new data
-    jsonData.push(req.body);
+    jsonData.push(newNote);
     // write back db file
     fs.writeFile(path.resolve(dbDirectory, "db.json"), JSON.stringify(jsonData), (err) => {
         if (err !== null)
