@@ -20,7 +20,6 @@ app.use(express.static('public'));
 
 // Routes: 3xGET, 1xPOST, 1xDELETE
 app.get('*', (req, res) => {
-    console.log("PATH", req.path);
     switch (req.path) {
         case '/':
             // GET: rest.sendFile(index.html)
@@ -65,12 +64,20 @@ app.post('/api/notes', (req, res) => {
 
 // DELETE: remove a note from db.json
 app.delete('/api/notes/:id', (req, res) => {
-    // req.body hosts is equal to the JSON post sent from the user
-    // This works because of our body parsing middleware
-    // const someVariable = req.body;
-
-    // We then display the JSON to the users
-    // res.json();
+    // read db file
+    let dbJSON = fs.readFileSync(path.resolve(dbDirectory, "db.json"), "utf8");
+    let jsonData = JSON.parse(dbJSON);
+    // remove the requested ID
+    let newArray = [];
+    for (let i = 0; i < jsonData.length; i++) {
+        if (jsonData[i].id !== req.params.id)
+            newArray.push(jsonData[i]);
+    }
+    // write back db file
+    fs.writeFile(path.resolve(dbDirectory, "db.json"), JSON.stringify(newArray), (err) => {
+        if (err !== null)
+            console.log(err);
+    });
 });
 
 // Starts the server to begin listening
