@@ -10,8 +10,6 @@ if (window.location.pathname === '/notes') {
     saveNoteBtn = document.querySelector('.save-note');
     newNoteBtn = document.querySelector('.new-note');
     noteList = document.querySelectorAll('.list-container .list-group');
-} else {
-    console.log("Path was", window.location.pathname);
 }
 
 // Show an element
@@ -67,7 +65,6 @@ const renderActiveNote = () => {
 };
 
 const handleNoteSave = () => {
-    console.log("handleNoteSave called!");
     const newNote = {
         title: noteTitle.value,
         text: noteText.value,
@@ -85,7 +82,8 @@ const handleNoteDelete = (e) => {
 
     const note = e.target;
     const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
-
+    console.log(noteId);
+    console.log(activeNote.id);
     if (activeNote.id === noteId) {
         activeNote = {};
     }
@@ -103,7 +101,7 @@ const handleNoteView = (e) => {
     renderActiveNote();
 };
 
-// Sets the activeNote to and empty object and allows the user to enter a new note
+// Sets the activeNote to an empty object and allows the user to enter a new note
 const handleNewNoteView = (e) => {
     activeNote = {};
     renderActiveNote();
@@ -178,8 +176,6 @@ if (window.location.pathname === '/notes') {
     newNoteBtn.addEventListener('click', handleNewNoteView);
     noteTitle.addEventListener('keyup', handleRenderSaveBtn);
     noteText.addEventListener('keyup', handleRenderSaveBtn);
-} else {
-    console.log("Path was", window.location.pathname);
 }
 
 getAndRenderNotes();
