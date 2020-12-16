@@ -84,6 +84,7 @@ app.delete('/api/notes/:id', (req, res) => {
         if (err !== null)
             console.log(err);
     });
+    res.json(newArray);
 });
 
 // Starts the server to begin listening
