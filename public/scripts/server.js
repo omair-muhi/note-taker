@@ -23,19 +23,23 @@ app.get('*', (req, res) => {
     switch (req.path) {
         case '/':
             // GET: rest.sendFile(index.html)
+            console.log("Server: GET / req recv'd");
             res.sendFile(path.join(__dirname, '../index.html'));
             break;
         case '/notes':
             // GET: res.sendFile(notes.html)
+            console.log("Server: GET /notes req recv'd");
             res.sendFile(path.join(__dirname, '../html/notes.html'));
             break;
         case '/api/notes':
             // GET: Return all saved notes as JSON from db.json
+            console.log("Server: GET /api/notes req recv'd");
             let dbJSON = fs.readFileSync(path.resolve(dbDirectory, "db.json"), "utf8");
             res.json(JSON.parse(dbJSON));
             break;
         default:
             // GET: rest.sendFile(index.html)
+            console.log("Server-DEFAULT: GET / req recv'd");
             res.sendFile(path.join(__dirname, '../index.html'));
             break;
     }
@@ -49,7 +53,7 @@ app.post('/api/notes', (req, res) => {
         title: req.body.title,
         text: req.body.text
     }
-
+    console.log("Server: POST req recv'd");
     // read db file
     let dbJSON = fs.readFileSync(path.resolve(dbDirectory, "db.json"), "utf8");
     let jsonData = JSON.parse(dbJSON);
@@ -60,6 +64,8 @@ app.post('/api/notes', (req, res) => {
         if (err !== null)
             console.log(err);
     });
+    // need to return something to make client happy
+    res.json(newNote);
 });
 
 // DELETE: remove a note from db.json
